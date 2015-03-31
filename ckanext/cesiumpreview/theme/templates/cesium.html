@@ -1,6 +1,10 @@
 {% extends 'dataviewer/base.html' %}
 
 {% block page %}
+<script>
+    var spatial = '{{c.package.spatial}}{ "type": "Polygon", "coordinates": [ [ [0.50, 49.74], [0.5, 59.25], [-6.88, 59.25], [-6.88, 49.74], [0.50, 49.74] ] ] }';
+
+</script>
   <div>
     <pre data-module="cesiumpreview">
       <div class="loading">
