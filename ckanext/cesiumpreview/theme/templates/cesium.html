@@ -2,7 +2,8 @@
 
 {% block page %}
 <script>
-    var spatial = '{{c.package.spatial}}{ "type": "Polygon", "coordinates": [ [ [0.50, 49.74], [0.5, 59.25], [-6.88, 59.25], [-6.88, 49.74], [0.50, 49.74] ] ] }';
+{% set package = c.package or h.get_action('package_show',{"id":c.id}) %}
+    var spatial = '{{ package.spatial|safe }}';
 
 </script>
   <div>

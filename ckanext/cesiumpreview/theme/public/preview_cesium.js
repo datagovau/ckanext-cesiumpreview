@@ -49,12 +49,12 @@ ckan.module('cesiumpreview', function (jQuery, _) {
             }
 
             config["initSources"][0]['catalog'][0]['items'][0]['url'] = preload_resource['url'];
-            config["initSources"][0]['catalog'][0]['items'][0]['type'] = preload_resource['format'].toLowerCase();
-
-            if (config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wms' || config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wfs') {
                 if (preload_resource['url'].indexOf('http') !== 0) {
                     config["initSources"][0]['catalog'][0]['items'][0]['url'] = "http:" + preload_resource['url'];
                 }
+            config["initSources"][0]['catalog'][0]['items'][0]['type'] = preload_resource['format'].toLowerCase();
+
+            if (config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wms' || config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wfs') {
                 // if wms_layer specified in resource, display that layer/layers by default
                 if (typeof preload_resource['wms_layer'] != 'undefined' && preload_resource['wms_layer'] != '') {
                     config["initSources"][0]['catalog'][0]['items'][0]['layers'] = preload_resource['wms_layer'];
