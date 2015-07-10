@@ -63,8 +63,8 @@ ckan.module('cesiumpreview', function (jQuery, _) {
                     config["initSources"][0]['catalog'][0]['items'][0]['type'] = config["initSources"][0]['catalog'][0]['items'][0]['type'] + '-getCapabilities';
                 }
             }
-            if (config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'arcgis rest api') {
-                config["initSources"][0]['catalog'][0]['items'][0]['type'] = 'esri-mapServer-group';
+            if (config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'aus-geo-csv' || config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'csv-geo-au') {
+                config["initSources"][0]['catalog'][0]['items'][0]['type'] = 'csv';
             }
             var encoded_config = encodeURIComponent(JSON.stringify(config));
             var style = 'height: 600px; width: 100%; border: none;';
