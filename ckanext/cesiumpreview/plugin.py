@@ -21,7 +21,7 @@ class CesiumPreview(p.SingletonPlugin):
     else:
     	p.implements(p.IResourcePreview, inherit=True)
 
-    Cesium_Formats = ['wms','wfs','kml', 'kmz','gjson', 'geojson', 'czml']
+    Cesium_Formats = ['wms','wfs','kml', 'kmz','gjson', 'geojson', 'czml','aus-geo-csv','csv-geo-au']
     proxy_is_enabled = False
 
     def update_config(self, config):
@@ -48,7 +48,7 @@ class CesiumPreview(p.SingletonPlugin):
                         'quality': 2}
         return {'can_preview': False}
 
-    def info(self): return {'name': 'cesium_view', 'title': 'National Map Beta', 'always_available': True, 'default_title': 'National Map Beta', 'icon': 'globe' }
+    def info(self): return {'name': 'cesium_view', 'title': 'National Map', 'always_available': True, 'default_title': 'National Map', 'icon': 'globe' }
 
     def can_view(self, data_dict):
         resource = data_dict['resource']
