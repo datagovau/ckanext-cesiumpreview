@@ -52,6 +52,9 @@ ckan.module('cesiumpreview', function (jQuery, _) {
                 if (preload_resource['url'].indexOf('http') !== 0) {
                     config["initSources"][0]['catalog'][0]['items'][0]['url'] = "http:" + preload_resource['url'];
                 }
+            if (preload_resource['wms_url']) {
+                config["initSources"][0]['catalog'][0]['items'][0]['url'] = preload_resource['wms_url'];
+            }
             config["initSources"][0]['catalog'][0]['items'][0]['type'] = preload_resource['format'].toLowerCase();
 
             if (config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wms' || config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wfs') {
