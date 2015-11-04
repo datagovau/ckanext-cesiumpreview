@@ -57,23 +57,32 @@ ckan.module('cesiumpreview', function (jQuery, _) {
             }
             config["initSources"][0]['catalog'][0]['items'][0]['type'] = preload_resource['format'].toLowerCase();
 
-            if (config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wms' || config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wfs') {
+            if (config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wms' || 
+		config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wfs') {
                 // if wms_layer specified in resource, display that layer/layers by default
                 if (typeof preload_resource['wms_layer'] != 'undefined' && preload_resource['wms_layer'] != '') {
                     config["initSources"][0]['catalog'][0]['items'][0]['layers'] = preload_resource['wms_layer'];
                 }
                 else {
-                    config["initSources"][0]['catalog'][0]['items'][0]['type'] = config["initSources"][0]['catalog'][0]['items'][0]['type'] + '-getCapabilities';
+                    config["initSources"][0]['catalog'][0]['items'][0]['type'] = config["initSources"][0]['catalog'][0]['items'][0]['type'] + 
+		    '-getCapabilities';
                 }
             }
-            if (config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'aus-geo-csv' || config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'csv-geo-au') {
+            if (config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'aus-geo-csv' || 
+		config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'csv-geo-au') {
                 config["initSources"][0]['catalog'][0]['items'][0]['type'] = 'csv';
             }
             var encoded_config = encodeURIComponent(JSON.stringify(config));
             var style = 'height: 600px; width: 100%; border: none;';
             var display = 'allowFullScreen mozAllowFullScreen webkitAllowFullScreen';
 
-            var html = '<iframe src="' + vis_server + '#clean&hideExplorerPanel=1&start=' + encoded_config + '" style="' + style + '" ' + display + '></iframe>';
+
+	    var src = vis_server + '#clean&hideExplorerPanel=1&start=' + encoded_config
+      	    var btn = '<a id="cesium-fullscreen" type="button" class="btn btn-warning" href="' + src + 
+	              '" title="Open map full-screen in a new tab" target="_"' + 
+		      '><i class="icon-fullscreen"></i>View Map Full-Screen</a>'
+            var map = '<iframe src="' + src  + '" style="' + style + '" ' + display + '></iframe>';
+	    var html = btn + map
 
             console.log(html);
 
