@@ -4,7 +4,6 @@ ckan.module('cesiumpreview', function (jQuery, _) {
         initialize: function () {
             var self = this;
 
-//      var vis_server = 'http://localhost';  //local
             var vis_server = 'https://nationalmap.gov.au/';
 
             var config = {
@@ -47,27 +46,35 @@ ckan.module('cesiumpreview', function (jQuery, _) {
                     config["initSources"][0]['homeCamera']['north'] = extent[3];
                 }
             }
+            var zero_item = config["initSources"][0]['catalog'][0]['items'][0];
 
-            config["initSources"][0]['catalog'][0]['items'][0]['url'] = preload_resource['url'];
-                if (preload_resource['url'].indexOf('http') !== 0) {
-                    config["initSources"][0]['catalog'][0]['items'][0]['url'] = "http:" + preload_resource['url'];
-                }
-            if (preload_resource['wms_url']) {
-                config["initSources"][0]['catalog'][0]['items'][0]['url'] = preload_resource['wms_url'];
+            zero_item['url'] = preload_resource['url'];
+            if (preload_resource['url'].indexOf('http') !== 0) {
+                zero_item['url'] = "http:" + preload_resource['url'];
             }
-            config["initSources"][0]['catalog'][0]['items'][0]['type'] = preload_resource['format'].toLowerCase();
+            if (preload_resource['wms_url']) {
+                zero_item['url'] = preload_resource['wms_url'];
+            }
+            zero_item['type'] = preload_resource['format'].toLowerCase();
 
-            if (config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wms' || config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'wfs') {
+            if (zero_item['type'] == 'wms') {
                 // if wms_layer specified in resource, display that layer/layers by default
-                if (typeof preload_resource['wms_layer'] != 'undefined' && preload_resource['wms_layer'] != '') {
-                    config["initSources"][0]['catalog'][0]['items'][0]['layers'] = preload_resource['wms_layer'];
+                if (typeof preload_resource['wms_layer'] != 'undefined' &&
+                        preload_resource['wms_layer'] != '') {
+                    zero_item['layers'] = preload_resource['wms_layer'];
                 }
                 else {
-                    config["initSources"][0]['catalog'][0]['items'][0]['type'] = config["initSources"][0]['catalog'][0]['items'][0]['type'] + '-getCapabilities';
+                    zero_item['type'] = zero_item['type'] + '-getCapabilities';
                 }
             }
-            if (config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'aus-geo-csv' || config["initSources"][0]['catalog'][0]['items'][0]['type'] == 'csv-geo-au') {
-                config["initSources"][0]['catalog'][0]['items'][0]['type'] = 'csv';
+            if (zero_item['type'] == 'wfs'){
+                if (preload_resource['typeNames'])
+                    zero_item['typeNames'] = preload_resource['typeNames'];
+                else
+                    zero_item['type'] = zero_item['type'] + '-getCapabilities';
+            }
+            if (zero_item['type'] == 'aus-geo-csv' || zero_item['type'] == 'csv-geo-au') {
+                zero_item['type'] = 'csv';
             }
             var encoded_config = encodeURIComponent(JSON.stringify(config));
             var style = 'height: 600px; width: 100%; border: none;';
