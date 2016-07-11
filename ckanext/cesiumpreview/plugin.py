@@ -16,10 +16,7 @@ class CesiumPreview(p.SingletonPlugin):
     '''This extension adds Cesium. '''
     p.implements(p.IConfigurer, inherit=True)
     p.implements(p.IConfigurable, inherit=True)
-    if p.toolkit.check_ckan_version('2.3'):
-        p.implements(p.IResourceView, inherit=True)
-    else:
-    	p.implements(p.IResourcePreview, inherit=True)
+    p.implements(p.IResourceView, inherit=True)
 
     Cesium_Formats = ['wms','wfs','kml', 'kmz','gjson', 'geojson', 'czml','aus-geo-csv','csv-geo-au']
     proxy_is_enabled = False
