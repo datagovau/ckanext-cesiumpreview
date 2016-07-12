@@ -2,8 +2,6 @@ import logging
 
 import ckan.plugins as p
 
-from ckan.common import json
-
 log = logging.getLogger(__name__)
 
 try:
@@ -12,13 +10,14 @@ try:
 except ImportError:
     pass
 
+
 class CesiumPreview(p.SingletonPlugin):
     '''This extension adds Cesium. '''
     p.implements(p.IConfigurer, inherit=True)
     p.implements(p.IConfigurable, inherit=True)
     p.implements(p.IResourceView, inherit=True)
 
-    Cesium_Formats = ['wms','wfs','kml', 'kmz','gjson', 'geojson', 'czml','aus-geo-csv','csv-geo-au']
+    Cesium_Formats = ['wms', 'wfs', 'kml', 'kmz', 'gjson', 'geojson', 'czml', 'aus-geo-csv', 'csv-geo-au']
     proxy_is_enabled = False
 
     def update_config(self, config):
@@ -33,9 +32,8 @@ class CesiumPreview(p.SingletonPlugin):
     def can_preview(self, data_dict):
         resource = data_dict['resource']
         format_lower = resource['format'].lower()
-        if (format_lower == ''):
+        if format_lower == '':
             format_lower = os.path.splitext(resource['url'])[1][1:].lower()
-#        print format_lower
         if format_lower in self.Cesium_Formats:
             if resource.get('on_same_domain') or self.proxy_is_enabled:
                 return {'can_preview': True, 'quality': 2}
@@ -45,25 +43,21 @@ class CesiumPreview(p.SingletonPlugin):
                         'quality': 2}
         return {'can_preview': False}
 
-    def info(self): return {'name': 'cesium_view', 'title': 'National Map', 'always_available': True, 'default_title': 'National Map', 'icon': 'globe' }
+    def info(self):
+        return {'name': 'cesium_view', 'title': 'National Map', 'always_available': True,
+                'default_title': 'National Map', 'icon': 'globe'}
 
     def can_view(self, data_dict):
         resource = data_dict['resource']
         format_lower = resource['format'].lower()
-        if (format_lower == ''):
+        if format_lower == '':
             format_lower = os.path.splitext(resource['url'])[1][1:].lower()
-#        print format_lower
         if format_lower in self.Cesium_Formats:
-	    return True
+            return True
         return False
-
-#    def setup_template_variables(self, context, data_dict):
-#        if (self.proxy_is_enabled
-#                and not data_dict['resource']['on_same_domain']):
-#            url = proxy.get_proxified_resource_url(data_dict)
-#            p.toolkit.c.resource['url'] = url
 
     def preview_template(self, context, data_dict):
         return 'cesium.html'
+
     def view_template(self, context, data_dict):
         return 'cesium.html'
