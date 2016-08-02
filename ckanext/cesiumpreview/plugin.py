@@ -18,7 +18,7 @@ class CesiumPreview(p.SingletonPlugin):
     if p.toolkit.check_ckan_version(min_version='2.3'):
         p.implements(p.IResourceView, inherit=True)
     else:
-    	p.implements(p.IResourcePreview, inherit=True)
+        p.implements(p.IResourcePreview, inherit=True)
 
     Cesium_Formats = ['wms', 'wfs', 'kml', 'kmz', 'gjson', 'geojson', 'czml', 'aus-geo-csv', 'csv-geo-au']
     proxy_is_enabled = False
