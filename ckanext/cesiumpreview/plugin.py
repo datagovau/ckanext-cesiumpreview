@@ -52,7 +52,7 @@ class CesiumPreview(p.SingletonPlugin):
 
     def can_view(self, data_dict):
         resource = data_dict['resource']
-        format_lower = resource['format'].lower()
+        format_lower = resource.get('format', '').lower()
         if format_lower == '':
             format_lower = os.path.splitext(resource['url'])[1][1:].lower()
         if format_lower in self.Cesium_Formats:
