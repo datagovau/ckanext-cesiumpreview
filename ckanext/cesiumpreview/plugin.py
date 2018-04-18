@@ -4,6 +4,8 @@ import ckan.plugins as p
 
 log = logging.getLogger(__name__)
 
+from ckanext.cesiumpreview.helpers import get_helpers
+
 try:
     import os
     import ckanext.resourceproxy.plugin as proxy
@@ -15,6 +17,7 @@ class CesiumPreview(p.SingletonPlugin):
     '''This extension adds Cesium. '''
     p.implements(p.IConfigurer, inherit=True)
     p.implements(p.IConfigurable, inherit=True)
+    p.implements(p.ITemplateHelpers)
     if p.toolkit.check_ckan_version(min_version='2.3'):
         p.implements(p.IResourceView, inherit=True)
     else:
@@ -64,3 +67,7 @@ class CesiumPreview(p.SingletonPlugin):
 
     def view_template(self, context, data_dict):
         return 'cesium.html'
+
+    ## ITemplateHelpers
+    def get_helpers(self):
+        return get_helpers()
