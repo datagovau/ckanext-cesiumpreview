@@ -1,6 +1,7 @@
 setup.py
 ckanext/__init__.py
 ckanext/cesiumpreview/__init__.py
+ckanext/cesiumpreview/helpers.py
 ckanext/cesiumpreview/plugin.py
 ckanext/cesiumpreview/tests/__init__.py
 ckanext/cesiumpreview/tests/test_preview.py
@@ -10,4 +11,5 @@ ckanext_cesiumpreview.egg-info/dependency_links.txt
 ckanext_cesiumpreview.egg-info/entry_points.txt
 ckanext_cesiumpreview.egg-info/namespace_packages.txt
 ckanext_cesiumpreview.egg-info/not-zip-safe
+ckanext_cesiumpreview.egg-info/pbr.json
 ckanext_cesiumpreview.egg-info/top_level.txt
