@@ -57,7 +57,7 @@ class CesiumPreview(p.SingletonPlugin):
             format_lower = os.path.splitext(resource['url'])[1][1:].lower()
 #        print format_lower
         if format_lower in self.Cesium_Formats:
-	    return True
+            return True
         return False
 
 #    def setup_template_variables(self, context, data_dict):
